@@ -77,14 +77,14 @@ def getDetail(id):
             r.table('traces').insert({
                 'id': id,
                 'state': '-1'
-            })
+            }).run(db)
             return '快递单号不正确'
         status = id2query(id, com)
         if status['status'] != '200':
             r.table('traces').insert({
                 'id': id,
                 'state': '-1'
-            })
+            }).run(db)
             return '快递单号不正确'
         insertDB(status)
         return result(status)
