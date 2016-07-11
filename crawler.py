@@ -17,14 +17,14 @@ for user in r.table('users').run(db):
             continue
         data = requests.get('http://m.kuaidi100.com/query?type=%s&postid=%s&id=1&valicode=&temp=%s' % (
             express['com'], express['id'], str(random.random()))).json()
-        if express['data'] == data['data']:
+        if len(express['data']) == len(data['data']):
             continue
         data['id'] = data['nu']
         del data['nu']
         for each in data['data']:
             each['time'] = r.epoch_time(time.mktime(time.strptime(each['time'], '%Y-%m-%d %H:%M:%S')))
         r.table('traces').get(express['id']).update(data).run(db)
-        text = '快递 {0} 有更新\n\n'
+        text = '快递 {0} 有更新\n\n'.format(data['id'])
         for i in data['data'][:len(data['data']) - len(express['data'])]:
             text += '{0}\n{1}'.format(
                 i['context'],
