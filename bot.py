@@ -95,11 +95,7 @@ def getDetail(id):
             return '快递单号不正确'
         status = id2query(id, com)
         if status['status'] != '200':
-            r.table('traces').insert({
-                'id': id,
-                'state': '-1'
-            }).run(db)
-            return '快递单号不正确'
+            return '无法查询到该单号的信息，请稍后再试'
         insertDB(status)
         return result(status)
     elif express_status['state'] == '-1':
