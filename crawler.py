@@ -40,7 +40,7 @@ for user in r.table('users').run(db):
         r.table('traces').get(express['id']).update(data).run(db)
         text = '快递 {0} 有更新\n\n'.format(data['id'])
         for i in data['data'][:len(data['data']) - len(express['data'])]:
-            text += '{0}\n{1}'.format(
+            text += '{0}\n{1}\n'.format(
                 i['context'],
                 i['ftime']
             )
